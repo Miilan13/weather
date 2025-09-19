@@ -1,6 +1,6 @@
 // Weather API Service
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-const BASE_URL = 'http://api.weatherapi.com/v1';
+const BASE_URL = 'https://api.weatherapi.com/v1';
 
 // Validate API key is loaded
 if (!API_KEY) {

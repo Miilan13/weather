@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4682B4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E6E6FA;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="16" cy="16" r="15" fill="url(#skyGradient)" stroke="#4682B4" stroke-width="1"/>
+  
+  <!-- Sun -->
+  <circle cx="11" cy="9" r="4" fill="url(#sunGradient)"/>
+  
+  <!-- Main Cloud -->
+  <ellipse cx="19" cy="18" rx="6" ry="4" fill="url(#cloudGradient)" stroke="#D3D3D3" stroke-width="0.5"/>
+  <circle cx="15" cy="17" r="3" fill="url(#cloudGradient)" stroke="#D3D3D3" stroke-width="0.5"/>
+  <circle cx="23" cy="17" r="2.5" fill="url(#cloudGradient)" stroke="#D3D3D3" stroke-width="0.5"/>
+  
+  <!-- Small Cloud -->
+  <ellipse cx="9" cy="22" rx="3" ry="2" fill="url(#cloudGradient)" stroke="#D3D3D3" stroke-width="0.3"/>
+  <circle cx="7" cy="21" r="1.5" fill="url(#cloudGradient)" stroke="#D3D3D3" stroke-width="0.3"/>
+  
+  <!-- Weather Symbol -->
+  <circle cx="16" cy="25" r="2" fill="#4682B4" opacity="0.8"/>
+  <text x="16" y="26" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="2.5" font-weight="bold">W</text>
+</svg>
