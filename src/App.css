@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Custom styles for navbar */
+.dropdown-toggle-white .dropdown-toggle {
+  color: white !important;
+}
+
+.dropdown-toggle-white .dropdown-toggle:hover {
+  color: #bfdbfe !important;
+}
+
+.dropdown-toggle-white .dropdown-toggle::after {
+  border-top-color: white;
+}
+
+/* Fix search input placeholder and text */
+.navbar .form-control {
+  background-color: white;
+  border: 1px solid white;
+  color: #1e40af;
+}
+
+.navbar .form-control::placeholder {
+  color: #6b7280;
+}
+
+.navbar .form-control:focus {
+  border-color: #bfdbfe;
+  box-shadow: 0 0 0 0.2rem rgba(191, 219, 254, 0.25);
+}
