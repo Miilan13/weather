@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SEO from '../Components/SEO';
 import { Container, Row, Col, Card, Button, Alert, Spinner, Form, Badge } from 'react-bootstrap';
 import WeatherService from '../services/WeatherService';
 
@@ -113,6 +114,29 @@ const Home = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
+      <SEO
+        title="Real-Time Weather & 7-Day Forecast | Weather.app"
+        description="Live weather conditions, 7-day forecast, air quality (AQI), UV index, humidity, wind, and pollutant breakdown. Search any city worldwide."
+        canonical="https://weather-eve3.onrender.com/"
+        schema={weatherData ? {
+          '@context': 'https://schema.org',
+          '@type': 'WeatherForecast',
+          'name': `Weather forecast for ${weatherData.location.name}`,
+          'datePublished': new Date().toISOString(),
+          'location': {
+            '@type': 'Place',
+            'name': weatherData.location.name,
+            'address': weatherData.location.region + ', ' + weatherData.location.country
+          },
+          'forecast': (forecastData?.forecastday || []).slice(0,7).map(fd => ({
+            '@type': 'DayWeatherForecast',
+            'date': fd.date,
+            'lowTemperature': { '@type': 'TemperatureValue', 'value': fd.day.mintemp_c, 'unitCode': 'C' },
+            'highTemperature': { '@type': 'TemperatureValue', 'value': fd.day.maxtemp_c, 'unitCode': 'C' },
+            'weatherSummary': fd.day.condition?.text
+          }))
+        } : undefined}
+      />
       <Container>
         {/* Header Section */}
         <Row className="mb-4">

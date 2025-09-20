@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../Components/SEO';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const About = () => {
@@ -9,6 +10,17 @@ const About = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
+      <SEO
+        title="About Weather.app | Mission & Technology"
+        description="Learn about Weather.app's mission, technology stack, data sources, and the team behind accurate real-time weather and air quality insights."
+        canonical="https://weather-eve3.onrender.com/about"
+        schema={{
+          '@context':'https://schema.org',
+          '@type':'AboutPage',
+          'name':'About Weather.app',
+          'description':'Mission, technology, and team behind Weather.app real-time forecasts and air quality insights.'
+        }}
+      />
       <Container>
         {/* Hero Section */}
         <Row className="mb-5">
