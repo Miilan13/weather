@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import "./Footer.css";
 
 const Footer = () => {
@@ -26,23 +27,23 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="footer-section">
-          <h4 className="footer-title">Quick Links</h4>
-          <ul className="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/forecast">Weather Forecast</a></li>
-            <li><a href="/contact">Contact Us</a></li>
+        <div className="footer-section" aria-labelledby="footer-quick-links">
+          <h4 id="footer-quick-links" className="footer-title">Quick Links</h4>
+          <ul className="footer-links" role="list">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/forecast">Weather Forecast</Link></li>
+            <li><Link to="/contact">Contact Us</Link></li>
           </ul>
         </div>
         
-        <div className="footer-section">
-          <h4 className="footer-title">Weather Services</h4>
-          <ul className="footer-links">
-            <li><a href="#">Current Weather</a></li>
-            <li><a href="#">7-Day Forecast</a></li>
-            <li><a href="#">Weather Maps</a></li>
-            <li><a href="#">Weather Alerts</a></li>
+        <div className="footer-section" aria-labelledby="footer-services">
+          <h4 id="footer-services" className="footer-title">Weather Services</h4>
+          <ul className="footer-links" role="list">
+            <li><a href="#" aria-label="Current Weather (coming soon)">Current Weather</a></li>
+            <li><a href="#" aria-label="7-Day Forecast (coming soon)">7-Day Forecast</a></li>
+            <li><a href="#" aria-label="Weather Maps (coming soon)">Weather Maps</a></li>
+            <li><a href="#" aria-label="Weather Alerts (coming soon)">Weather Alerts</a></li>
           </ul>
         </div>
         
@@ -60,9 +61,9 @@ const Footer = () => {
         <div className="footer-bottom-content">
           <p>&copy; 2025 Weather.app. All rights reserved.</p>
           <div className="footer-bottom-links">
-            <a href="#" className="footer-bottom-link">Privacy Policy</a>
-            <a href="#" className="footer-bottom-link">Terms of Service</a>
-            <a href="#" className="footer-bottom-link">Cookie Policy</a>
+            <Link to="/privacy" className="footer-bottom-link">Privacy Policy</Link>
+            <Link to="/terms" className="footer-bottom-link">Terms of Service</Link>
+            <a href="#" className="footer-bottom-link" aria-label="Cookie Policy (coming soon)">Cookie Policy</a>
           </div>
         </div>
       </div>

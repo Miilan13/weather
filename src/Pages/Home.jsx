@@ -132,7 +132,7 @@ const Home = () => {
             <Card className="shadow border-0">
               <Card.Body className="p-4">
                 <Form onSubmit={handleSearch}>
-                  <Row className="align-items-end">
+                  <Row className="align-items-end g-3 g-md-2">
                     <Col md={6}>
                       <Form.Group className="mb-3 mb-md-0">
                         <Form.Label className="fw-semibold">
@@ -147,21 +147,21 @@ const Home = () => {
                         />
                       </Form.Group>
                     </Col>
-                    <Col md={3}>
-                      <Button 
-                        type="submit" 
-                        className="w-100 bg-primary border-0"
+                    <Col md={3} className="d-grid">
+                      <Button
+                        type="submit"
+                        className="bg-primary border-0"
                         disabled={loading}
                       >
                         <i className="fas fa-search me-2"></i>Search
                       </Button>
                     </Col>
-                    <Col md={3}>
-                      <Button 
-                        variant="outline-primary" 
-                        className="w-100"
+                    <Col md={3} className="d-grid">
+                      <Button
+                        variant="outline-primary"
                         onClick={handleCurrentLocation}
                         disabled={loading}
+                        className="mt-1 mt-md-0"
                       >
                         <i className="fas fa-location-arrow me-2"></i>Current Location
                       </Button>
@@ -322,37 +322,77 @@ const Home = () => {
             {/* Air Quality */}
             {weatherData.airQuality && (
               <Row className="mb-4">
-                <Col lg={8} className="mx-auto">
-                  <Card className="shadow border-0">
-                    <Card.Header className="bg-success text-white">
-                      <h4 className="mb-0">
-                        <i className="fas fa-lungs me-2"></i>Air Quality Index
-                      </h4>
+                <Col lg={10} className="mx-auto">
+                  <Card className="shadow border-0 airq-card">
+                    <Card.Header className="bg-success text-white d-flex justify-content-between align-items-center flex-wrap gap-2">
+                      <div className="d-flex align-items-center gap-2">
+                        <i className="fas fa-lungs fa-lg"></i>
+                        <h4 className="mb-0">Air Quality</h4>
+                      </div>
+                      <small className="fw-semibold aqi-badge" aria-label="EPA Index">EPA Index: {weatherData.airQuality.usEpaIndex}</small>
                     </Card.Header>
                     <Card.Body>
-                      <Row>
-                        <Col md={3} className="text-center mb-3">
-                          <h5 className="text-primary">PM2.5</h5>
-                          <h3 className="mb-0">{weatherData.airQuality.pm2_5}</h3>
-                          <small className="text-muted">μg/m³</small>
-                        </Col>
-                        <Col md={3} className="text-center mb-3">
-                          <h5 className="text-primary">PM10</h5>
-                          <h3 className="mb-0">{weatherData.airQuality.pm10}</h3>
-                          <small className="text-muted">μg/m³</small>
-                        </Col>
-                        <Col md={3} className="text-center mb-3">
-                          <h5 className="text-primary">O3</h5>
-                          <h3 className="mb-0">{weatherData.airQuality.o3}</h3>
-                          <small className="text-muted">μg/m³</small>
-                        </Col>
-                        <Col md={3} className="text-center mb-3">
-                          <h5 className="text-primary">NO2</h5>
-                          <h3 className="mb-0">{weatherData.airQuality.no2}</h3>
-                          <small className="text-muted">μg/m³</small>
-                        </Col>
-                      </Row>
+                      {(() => {
+                        const aq = weatherData.airQuality;
+                        const epa = aq.usEpaIndex; // 1-6 scale
+                        const epaMap = {
+                          1: { label: 'Good', color: '#16a34a' },
+                          2: { label: 'Moderate', color: '#65a30d' },
+                          3: { label: 'Unhealthy (Sensitive)', color: '#ca8a04' },
+                          4: { label: 'Unhealthy', color: '#dc2626' },
+                          5: { label: 'Very Unhealthy', color: '#9333ea' },
+                          6: { label: 'Hazardous', color: '#6d28d9' }
+                        };
+                        const cat = epaMap[epa] || { label: 'Unknown', color: '#64748b' };
+                        const pollutants = [
+                          { key: 'pm2_5', name: 'PM2.5', value: aq.pm2_5, max: 250 },
+                          { key: 'pm10', name: 'PM10', value: aq.pm10, max: 300 },
+                          { key: 'o3', name: 'Ozone (O3)', value: aq.o3, max: 300 },
+                          { key: 'no2', name: 'NO₂', value: aq.no2, max: 200 },
+                          { key: 'so2', name: 'SO₂', value: aq.so2, max: 200 },
+                          { key: 'co', name: 'CO', value: aq.co, max: 1000 }
+                        ];
+                        return (
+                          <div className="airq-wrapper">
+                            <div className="airq-summary mb-4">
+                              <div className="airq-category" style={{ background: cat.color }} aria-label={`Overall category: ${cat.label}`}>
+                                {cat.label}
+                              </div>
+                              <div className="airq-scale">
+                                {[1,2,3,4,5,6].map(n => (
+                                  <div key={n} className={`airq-scale-step ${n === epa ? 'active' : ''}`} aria-label={`EPA level ${n}`}></div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="row g-3">
+                              {pollutants.map(p => {
+                                const pct = Math.min(100, Math.round((p.value / p.max) * 100));
+                                return (
+                                  <div key={p.key} className="col-12 col-sm-6 col-md-4 col-lg-4">
+                                    <div className="pollutant-tile h-100">
+                                      <div className="d-flex justify-content-between align-items-center mb-1">
+                                        <span className="pollutant-name" title={p.name}>{p.name}</span>
+                                        <span className="pollutant-value">{p.value.toFixed ? p.value.toFixed(1) : p.value}<small className="unit ms-1">μg/m³</small></span>
+                                      </div>
+                                      <div className="progress airq-progress" role="progressbar" aria-valuemin={0} aria-valuemax={p.max} aria-valuenow={p.value} aria-label={`${p.name} concentration`}> 
+                                        <div className="progress-bar" style={{ width: pct + '%', background: cat.color }}></div>
+                                      </div>
+                                      <div className="scale small text-muted">{pct}% of reference max</div>
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </Card.Body>
+                    <Card.Footer className="bg-light small text-muted d-flex flex-wrap gap-3 justify-content-between">
+                      <span>Based on US EPA Air Quality Index</span>
+                      {weatherData.airQuality.gbDefraIndex && (
+                        <span>DEFRA: {weatherData.airQuality.gbDefraIndex}</span>
+                      )}
+                    </Card.Footer>
                   </Card>
                 </Col>
               </Row>
@@ -373,39 +413,28 @@ const Home = () => {
                 <Card.Body className="p-0">
                   <div className="forecast-container">
                     {forecastData.forecast.forecastday.map((day, index) => (
-                      <div key={index} className="forecast-day p-3 border-bottom">
-                        <Row className="align-items-center">
-                          <Col xs={3}>
-                            <h6 className="mb-0 fw-bold">
-                              {index === 0 ? 'Today' : formatDate(day.date)}
-                            </h6>
-                            <small className="text-muted">{day.date}</small>
-                          </Col>
-                          <Col xs={3} className="text-center">
-                            <img 
-                              src={WeatherService.getWeatherIconUrl(day.day.condition.icon)} 
+                      <div key={index} className="forecast-row-item">
+                        <div className="forecast-grid">
+                          <div className="fg-date">
+                            <span className="fg-label">{index === 0 ? 'Today' : formatDate(day.date)}</span>
+                            <span className="fg-sub d-none d-sm-inline">{day.date}</span>
+                          </div>
+                          <div className="fg-icon">
+                            <img
+                              src={WeatherService.getWeatherIconUrl(day.day.condition.icon)}
                               alt={day.day.condition.text}
-                              style={{ width: '48px', height: '48px' }}
+                              loading="lazy"
                             />
-                          </Col>
-                          <Col xs={4}>
-                            <div className="text-muted small">
-                              {day.day.condition.text}
-                            </div>
-                            <div className="small">
-                              <i className="fas fa-tint text-primary me-1"></i>
-                              {day.day.daily_chance_of_rain}%
-                            </div>
-                          </Col>
-                          <Col xs={2} className="text-end">
-                            <div className="fw-bold text-primary">
-                              {unit === 'celsius' ? `${day.day.maxtemp_c}°` : `${day.day.maxtemp_f}°`}
-                            </div>
-                            <div className="text-muted">
-                              {unit === 'celsius' ? `${day.day.mintemp_c}°` : `${day.day.mintemp_f}°`}
-                            </div>
-                          </Col>
-                        </Row>
+                          </div>
+                          <div className="fg-condition">
+                            <span className="fg-text" title={day.day.condition.text}>{day.day.condition.text}</span>
+                            <span className="fg-rain"><i className="fas fa-tint"></i> {day.day.daily_chance_of_rain}%</span>
+                          </div>
+                          <div className="fg-temps" aria-label="Temperature high and low">
+                            <span className="fg-max">{unit === 'celsius' ? `${day.day.maxtemp_c}°` : `${day.day.maxtemp_f}°`}</span>
+                            <span className="fg-min">{unit === 'celsius' ? `${day.day.mintemp_c}°` : `${day.day.mintemp_f}°`}</span>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>

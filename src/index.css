@@ -1,0 +1,202 @@
+/* Global & Responsive Enhancements */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; overflow-x: hidden; background-color: #f0f9ff; }
+/* Ensure root containers never cause horizontal scrolling */
+#root, .home-page { overflow-x: hidden; }
+
+img, picture, svg, video, canvas { max-width: 100%; height: auto; display: block; }
+img { object-fit: contain; }
+
+/* Remove default list bullets inside nav for ul usage */
+nav ul { list-style: none; padding-left: 0; margin: 0; }
+
+/* Navbar specific tweaks */
+.app-navbar .navbar-collapse { width: 100%; }
+.app-navbar .nav-link { position: relative; }
+.app-navbar .nav-link,
+.app-navbar .nav-link:visited,
+.app-navbar .navbar-nav .nav-link.nav-route-link,
+.app-navbar .navbar-nav .nav-link.nav-route-link.active {
+	color:#ffffff !important;
+}
+.app-navbar .nav-link:focus-visible { outline: 2px solid #bfdbfe; outline-offset: 2px; }
+
+/* Enhanced Navbar Styling */
+.app-navbar { 
+	--nav-bg-start:#0f1e46;
+	--nav-bg-mid:#153272;
+	--nav-bg-end:#1d4ed8;
+	background: linear-gradient(110deg, var(--nav-bg-start) 0%, var(--nav-bg-mid) 55%, var(--nav-bg-end) 90%);
+	transition: background .35s ease, padding .3s ease, box-shadow .3s ease, transform .3s ease;
+	position: sticky; top:0; z-index:1030;
+}
+.app-navbar::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 40%); pointer-events:none; }
+.app-navbar .navbar-brand, .app-navbar .nav-route-link { text-shadow:0 2px 4px rgba(0,0,0,.55); }
+.app-navbar.is-scrolled { 
+	background: linear-gradient(110deg, #0d1939 0%, #122e66 65%, #1e40af 100%);
+	box-shadow:0 4px 16px -2px rgba(0,0,0,.45);
+	padding-top:.35rem !important; padding-bottom:.45rem !important;
+}
+
+.nav-route-link {
+	text-decoration:none;
+	display:inline-flex;
+	align-items:center;
+	gap:.5rem;
+	font-size:.95rem;
+	font-weight:600;
+	letter-spacing:.35px;
+	padding:.5rem .95rem;
+	border-radius:2rem;
+	position:relative;
+	transition:background-color .25s ease, box-shadow .35s ease, transform .25s ease, color .2s ease;
+	color:#ffffff !important;
+	line-height:1;
+}
+.nav-route-link::after {
+	content:"";
+	position:absolute;
+	left:.95rem;
+	right:.95rem;
+	bottom:6px;
+	height:2px;
+	border-radius:2px;
+	background:linear-gradient(90deg,#ffffff,#e0f2fe);
+	transform:scaleX(0);
+	transform-origin:left;
+	opacity:.9;
+	transition:transform .35s ease;
+	pointer-events:none;
+}
+.nav-route-link:focus-visible { outline:2px solid #ffffff; outline-offset:2px; }
+.nav-route-link:hover { background:rgba(255,255,255,.22); box-shadow:0 4px 14px -4px rgba(0,0,0,.55); color:#ffffff !important; transform:translateY(-1px); }
+.nav-route-link:hover::after, .nav-route-link:focus-visible::after { transform:scaleX(1); }
+.nav-route-link.active { background:#2563eb; color:#ffffff !important; box-shadow:0 4px 12px -3px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.25) inset; }
+.nav-route-link.active::after { transform:scaleX(1); background:linear-gradient(90deg,#bfdbfe,#ffffff); }
+.nav-route-link.active:hover { background:#1d4ed8; }
+.nav-route-link:active { transform:translateY(1px); }
+
+/* Toggler */
+.nav-toggle { border:none; box-shadow:none !important; display:flex; flex-direction:column; gap:5px; padding:6px 10px; }
+.nav-toggle:focus-visible { outline:2px solid #bfdbfe; outline-offset:2px; }
+.nav-toggle .toggle-bar { width:26px; height:3px; background:#fff; border-radius:2px; transition:transform .4s cubic-bezier(.4,.0,.2,1), opacity .3s ease; }
+.nav-toggle[aria-expanded='true'] .toggle-bar:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded='true'] .toggle-bar:nth-child(2) { opacity:0; }
+.nav-toggle[aria-expanded='true'] .toggle-bar:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+
+@media (max-width: 991.98px) {
+	.nav-route-link { width:100%; padding:.55rem 0; }
+	.nav-route-link::after { bottom:0; }
+}
+
+@media (prefers-color-scheme: dark) {
+	.app-navbar { background: linear-gradient(90deg, rgba(15,23,42,.9) 0%, rgba(30,58,138,.9) 60%, rgba(37,99,235,.85) 100%); }
+	.app-navbar.is-scrolled { background: linear-gradient(90deg, rgba(15,23,42,.95) 0%, rgba(30,58,138,.95) 60%, rgba(29,78,216,.95) 100%); }
+			.nav-route-link { color:#f8fafc !important; }
+			.nav-route-link:hover { background:rgba(255,255,255,.25); }
+			.nav-route-link.active { background:#1d4ed8; }
+}
+
+/* Mobile collapsed nav: full width items */
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint */
+	.app-navbar .navbar-collapse { padding: .75rem 0 1rem; }
+	.app-navbar .nav-link { width: 100%; padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.15); }
+	.app-navbar .nav-link:last-child { border-bottom: none; }
+}
+
+/* Forecast container responsive layout */
+.forecast-container { width: 100%; }
+@media (min-width: 768px) {
+	.forecast-container { display: grid; grid-template-columns: 1fr; }
+}
+
+/* Forecast redesign */
+.forecast-row-item { padding: .65rem .9rem; border-bottom: 1px solid #e2e8f0; background:#ffffff; }
+.forecast-row-item:nth-child(even) { background:#f8fafc; }
+.forecast-grid { display:grid; grid-template-columns: 90px 56px 1fr 60px; align-items:center; gap:.5rem; font-size:.85rem; }
+.forecast-grid img { width:48px; height:48px; object-fit:contain; }
+.fg-date { display:flex; flex-direction:column; }
+.fg-label { font-weight:600; color:#1e3a8a; line-height:1.1; }
+.fg-sub { font-size:.65rem; color:#64748b; }
+.fg-condition { display:flex; flex-direction:column; min-width:0; }
+.fg-text { color:#334155; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:180px; }
+.fg-rain { color:#0ea5e9; font-size:.65rem; display:flex; align-items:center; gap:4px; }
+.fg-rain i { font-size:.6rem; }
+.fg-temps { text-align:right; display:flex; flex-direction:column; line-height:1.1; }
+.fg-max { font-weight:600; color:#0f766e; }
+.fg-min { font-size:.7rem; color:#64748b; }
+
+@media (max-width: 640px) {
+	.forecast-grid { grid-template-columns: 72px 44px 1fr 52px; gap:.4rem; }
+	.forecast-grid img { width:40px; height:40px; }
+	.fg-text { max-width:120px; }
+	.fg-label { font-size:.75rem; }
+	.fg-max { font-size:.8rem; }
+	.fg-min { font-size:.6rem; }
+}
+
+@media (max-width:420px) {
+	.forecast-grid { grid-template-columns: 66px 38px 1fr 46px; }
+	.fg-text { max-width:100px; }
+	.forecast-row-item { padding:.5rem .65rem; }
+}
+
+@media (prefers-color-scheme: dark) {
+	.forecast-row-item { background:#1e293b; border-color:#334155; }
+	.forecast-row-item:nth-child(even) { background:#243249; }
+	.fg-label { color:#93c5fd; }
+	.fg-text { color:#e2e8f0; }
+	.fg-min { color:#94a3b8; }
+}
+
+/* Air Quality Card */
+.airq-card .aqi-badge { background:rgba(255,255,255,.2); padding:.25rem .6rem; border-radius:999px; }
+.airq-wrapper { font-size:.85rem; }
+.airq-summary { display:flex; flex-direction:column; gap:.75rem; }
+.airq-category { color:#fff; font-weight:600; padding:.4rem .9rem; border-radius:.5rem; box-shadow:0 2px 4px rgba(0,0,0,.15); font-size:.8rem; width:fit-content; }
+.airq-scale { display:grid; grid-template-columns:repeat(6,1fr); gap:.35rem; max-width:260px; }
+.airq-scale-step { height:8px; background:#e2e8f0; border-radius:2px; position:relative; overflow:hidden; }
+.airq-scale-step.active { outline:2px solid #1e3a8a; outline-offset:2px; box-shadow:0 0 0 2px rgba(255,255,255,.9) inset; }
+.pollutant-tile { background:#f8fafc; border:1px solid #e2e8f0; padding:.65rem .75rem; border-radius:.6rem; display:flex; flex-direction:column; gap:.35rem; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+.pollutant-tile:hover { box-shadow:0 2px 4px rgba(0,0,0,.12); }
+.pollutant-name { font-weight:600; color:#334155; }
+.pollutant-value { font-weight:600; color:#0f172a; font-size:.85rem; }
+.pollutant-value .unit { font-size:.6rem; color:#64748b; }
+.airq-progress { height:6px; background:#e2e8f0; border-radius:3px; }
+.airq-progress .progress-bar { height:100%; border-radius:3px; transition:width .4s ease; }
+.scale { font-size:.6rem; letter-spacing:.5px; }
+
+@media (min-width:768px){
+	.airq-summary { flex-direction:row; justify-content:space-between; align-items:center; }
+}
+
+@media (prefers-color-scheme: dark) {
+	.airq-card .card-footer { background:#1e293b !important; }
+	.pollutant-tile { background:#1e293b; border-color:#334155; }
+	.pollutant-name { color:#e2e8f0; }
+	.pollutant-value { color:#f1f5f9; }
+	.airq-progress { background:#334155; }
+	.scale { color:#64748b; }
+	.airq-scale-step { background:#334155; }
+}
+
+/* Utility adjustments */
+.weather-icon { max-width: 140px; height: auto; }
+
+/* Reduce large heading sizes on very small devices */
+@media (max-width: 400px) {
+	h1.display-4 { font-size: 2rem; }
+	.display-2 { font-size: 2.5rem; }
+}
+
+/* Footer improvements for ultra-small devices */
+@media (max-width: 360px) {
+	.footer-content { padding: 0 0.5rem; }
+}
+
+/* Smooth animations preference respect */
+@media (prefers-reduced-motion: reduce) {
+	* { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
