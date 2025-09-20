@@ -1,5 +1,4 @@
 import React from 'react';
-import SEO from '../Components/SEO';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const PrivacyPolicy = () => {
@@ -10,12 +9,6 @@ const PrivacyPolicy = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
-      <SEO
-        title="Privacy Policy | Weather.app"
-        description="Learn how Weather.app collects, uses, protects, and shares your data including location, account, and usage information."
-        canonical="https://weather-eve3.onrender.com/privacy"
-        schema={{ '@context':'https://schema.org', '@type':'PrivacyPolicy', 'name':'Weather.app Privacy Policy' }}
-      />
       <Container>
         {/* Header Section */}
         <Row className="mb-5">

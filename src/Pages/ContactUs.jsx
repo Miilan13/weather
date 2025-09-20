@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SEO from '../Components/SEO';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 
 const ContactUs = () => {
@@ -46,12 +45,6 @@ const ContactUs = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
-      <SEO
-        title="Contact Weather.app | Get Support & Feedback"
-        description="Contact Weather.app for support, feedback, partnership inquiries, API access, or general questions. We're here to help."
-        canonical="https://weather-eve3.onrender.com/contact"
-        schema={{ '@context':'https://schema.org', '@type':'ContactPage', 'name':'Contact Weather.app' }}
-      />
       <Container>
         {/* Header Section */}
         <Row className="mb-5">

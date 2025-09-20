@@ -1,5 +1,4 @@
 import React from 'react';
-import SEO from '../Components/SEO';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const TermsOfService = () => {
@@ -10,12 +9,6 @@ const TermsOfService = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
-      <SEO
-        title="Terms of Service | Weather.app"
-        description="Read the Terms of Service governing the use of Weather.app including data usage, account responsibilities, disclaimers, and legal conditions."
-        canonical="https://weather-eve3.onrender.com/terms"
-        schema={{ '@context':'https://schema.org', '@type':'TermsOfService', 'name':'Weather.app Terms of Service' }}
-      />
       <Container>
         {/* Header Section */}
         <Row className="mb-5">

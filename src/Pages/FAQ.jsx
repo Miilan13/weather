@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SEO from '../Components/SEO';
 import { Container, Row, Col, Card, Accordion, Form, Button } from 'react-bootstrap';
 
 const FAQ = () => {
@@ -95,20 +94,6 @@ const FAQ = () => {
       paddingTop: '2rem',
       paddingBottom: '2rem'
     }}>
-      <SEO
-        title="Weather.app FAQ | Common Questions Answered"
-        description="Find answers about data accuracy, forecasts, air quality, features, accounts, and technical details for Weather.app."
-        canonical="https://weather-eve3.onrender.com/faq"
-        schema={{
-          '@context':'https://schema.org',
-          '@type':'FAQPage',
-          'mainEntity': faqData.map(f => ({
-            '@type':'Question',
-            'name': f.question,
-            'acceptedAnswer': { '@type':'Answer', 'text': f.answer }
-          }))
-        }}
-      />
       <Container>
         {/* Header Section */}
         <Row className="mb-5">

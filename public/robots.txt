@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://weather-eve3.onrender.com/sitemap.xml
