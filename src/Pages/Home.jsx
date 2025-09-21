@@ -55,7 +55,7 @@ const Home = () => {
     }
   };
 
-  const handleCurrentLocation = async () => {
+const handleCurrentLocation = async () => {
     setLoading(true);
     setError(null);
     setHasSearched(true);
@@ -65,7 +65,17 @@ const Home = () => {
       if (result.success) {
         const formattedData = WeatherService.formatWeatherData(result.data);
         setWeatherData(formattedData);
-        setCurrentLocation('Current Location');
+        // Set the actual location name from the API response instead of hardcoded string
+        setCurrentLocation(`${formattedData.location.name}, ${formattedData.location.region}`);
+        
+        // Also get the forecast for the current location
+        const forecastResult = await WeatherService.getWeatherForecast(
+          `${formattedData.location.name}, ${formattedData.location.region}`, 
+          7
+        );
+        if (forecastResult.success) {
+          setForecastData(forecastResult.data);
+        }
       } else {
         setError(result.error);
       }
@@ -76,7 +86,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-
   const getTemperature = (temp) => {
     return unit === 'celsius' ? `${temp.celsius}°C` : `${temp.fahrenheit}°F`;
   };
